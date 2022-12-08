@@ -12,7 +12,6 @@ function isEqual(prev, next) {
     } else {
         return false;
     }
-
 }
 
 // 创建普通链表⛓
@@ -137,6 +136,11 @@ export class Link {
     // 是否为空
     isEmpty() {
         return this.size() === 0;
+    }
+    // 清空操作
+    clear() {
+        this.head = undefined;
+        this.count = 0;
     }
     // 获取头部
     getHead() {
