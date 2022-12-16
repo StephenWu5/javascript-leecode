@@ -148,7 +148,7 @@ export class Link {
     }
     // 把链表⛓转化为字符串
     toString() {
-        if(this.size() <= 0) {
+        if (this.size() <= 0) {
             return '';
         }
         let current = this.head;

@@ -16,15 +16,15 @@ function isEqual(prev, next) {
 
 // 创建普通链表⛓
 // 普通链表类
-class MyLinkedList {
+export class Link {
     // 初始化
-    constructor() {
-        this.head = new Node();
+    constructor({ head, isEqual }) {
+        this.head = head;
         this.isEqual = isEqual;
         this.count = 0;
     }
     // push 给链表添加数据
-    addAtTail(element) {
+    push(element) {
         const node = new Node(element);
         let current = this.head;
         if (current == undefined) {
@@ -40,7 +40,7 @@ class MyLinkedList {
         this.count++;
     }
     // 给链表⛓删除数据项
-    deleteAtIndex(index) {
+    removeByIndex(index) {
         if (index >= 0 && index < this.count) {
             // 分三种场景:
             let current = this.head;
@@ -61,7 +61,7 @@ class MyLinkedList {
                 // for (let i = 0; i < index - 1; i++) {
                 //     current = current.next;
                 // }
-                const previous = this.get(index - 1);
+                const previous = this.getItem(index - 1);
                 current = previous.next;
                 // 删除某一项的关键是让
                 previous.next = current.next;
@@ -74,7 +74,7 @@ class MyLinkedList {
         }
     }
     // 获取某一项
-    get(index) {
+    getItem(index) {
         // 3、关键是找到上一项和当前项
         let current = this.head;
         for (let i = 0; i < index; i++) {
@@ -82,13 +82,9 @@ class MyLinkedList {
         }
         return current;
     }
-    // 在头部新增
-    addAtHead(element) {
-        this.addAtIndex(0, element);
-    }
     // 添加一项
     // 分三种场景: 
-    addAtIndex(index, element) {
+    addItem(element, index) {
         const node = new Node(element);
         if (index >= 0) {
             let current = this.head
@@ -103,7 +99,7 @@ class MyLinkedList {
                 }
             } else {
                 // 3、在非头部上添加
-                const previous = this.get(index - 1);
+                const previous = this.getItem(index - 1);
                 current = previous.next;
                 node.next = current;
                 previous.next = node;
@@ -113,6 +109,7 @@ class MyLinkedList {
         } else {
             return false;
         }
+
     }
     // 根据元素值获取索引
     indexOf(element) {
@@ -163,5 +160,4 @@ class MyLinkedList {
         return resString;
     }
 }
-
 
