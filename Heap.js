@@ -13,27 +13,24 @@ class minHeap {
         return 2 * index + 1;
     }
     getRightIndex(index) {
-        return 2 * index + 1;
+        return 2 * index + 2;
     }
     // 获取父节点的下标
     getParentIndex(index) {
-        return Math.floor(index - 1);
+        return Math.floor((index - 1) /2);
     }
     /**
      * 插入一个节点
      */
     insert(val) {
-        let currentIndex = this.heap.length;
-        let parentIndex = this.getParentIndex(currentIndex);
         this.heap.push(val);
+        let currentIndex = this.heap.length - 1;
+        let parentIndex = this.getParentIndex(currentIndex);
         // 交换数据；直到currentIndex 为0
         // 上移操作
-        while (currentIndex > 0) {
+        while (currentIndex > 0 && defaultCompare(this.heap[currentIndex], this.heap[parentIndex]) === Compare.LESS_THAN) {
             // 交换数值操作
-            if (defaultCompare(this.heap[currentIndex], this.heap[parentIndex]) === Compare.LESS_THAN) {
-                [this.heap[currentIndex], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[currentIndex]]
-
-            }
+            [this.heap[currentIndex], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[currentIndex]]
             currentIndex = parentIndex;
             parentIndex = this.getParentIndex(currentIndex);
         }
@@ -52,6 +49,10 @@ class minHeap {
     remove() {
         // 每次都都导出最大、最小值，所以导出最大、最小值
         const res = this.heap.shift();
+        // 如果此时堆空了，不必下沉
+        if (this.isEmpty()) {
+            return res;
+        }
         this.heap.unshift(this.heap.pop());
         this.down(0);
         return res;
@@ -64,7 +65,6 @@ class minHeap {
         const size = this.size();
         // left 或 right 小于 size的情况下
         if (left < size && defaultCompare(this.heap[element], this.heap[left]) === Compare.BIGGER_THAN) {
-            console.log(element, left,'8888');
             element = left;
         }
         if (right < size && defaultCompare(this.heap[element], this.heap[right]) === Compare.BIGGER_THAN) {
@@ -83,5 +83,4 @@ heap.insert(3);
 heap.insert(4);
 heap.insert(2);
 heap.insert(1);
-console.log(heap.remove(), 'heap.remove()');
-console.log(heap.getHeap(), 'heap');
+console.log(heap, 'heap');
