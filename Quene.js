@@ -1,7 +1,7 @@
 // 队列的特点是先进先出
 // export const Quene = class Quene {
 // 可以解决击鼓传💐的问题；
-class Quene {
+export class Quene {
     // 构造器
     constructor() {
         this.items = {};
